@@ -11,11 +11,12 @@ content = webpage.content
 
 soup = BeautifulSoup(content, "html.parser")
 
-
-
+# Count Function
 def get_citations_needed_count(url):
     """
-    
+    A function that takes in a url and returns an integer that represents the number of paragraphs that needs citation
+        Arguments: url
+        Return: integer
     """
     # # Without using length len() built in method because it increases execution time
     # citation_needed_count = 0
@@ -28,16 +29,23 @@ def get_citations_needed_count(url):
 
     # With len() built in method
     paragraph_div = soup.find("div", id = "mw-content-text")
-    paragraphs = paragraph_div.find_all("p")
     paragraph_with_need_citation = paragraph_div.find_all("a", title = "Wikipedia:Citation needed")
     return len(paragraph_with_need_citation)
 
-
+# Report function
 def get_citations_needed_report(url):
     """
     """
-    pass
+    list_str = []
+    paragraph_div = soup.find("div", id = "mw-content-text")
+    needs = paragraph_div.find_all("a", title = "Wikipedia:Citation needed")
+    for need in needs:
+        list_str.append(need.parent.parent.parent.text)
+    str_fo = "\n".join(map(str,list_str))
+    return str_fo
+
 
 
 if __name__ == "__main__":
     print(get_citations_needed_count(URL))
+    print(get_citations_needed_report(URL))
