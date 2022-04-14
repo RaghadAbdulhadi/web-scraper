@@ -44,8 +44,8 @@ def get_citations_needed_report(url):
     needed_citations = paragraph_div.find_all("a", title = "Wikipedia:Citation needed")
     for needed_citation in needed_citations:
         list_of_para_with_need_citation.append(needed_citation.parent.parent.parent.text)
-    str_fo = "\n".join(map(str,list_of_para_with_need_citation))
-    return str_fo
+    citations_needed_report = "\n".join(map(str,list_of_para_with_need_citation))
+    return citations_needed_report
 
 
 
