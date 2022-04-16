@@ -45,8 +45,17 @@ def get_citations_needed_report(url):
     for needed_citation in needed_citations:
         list_of_para_with_need_citation.append(needed_citation.parent.parent.parent.text)
     citations_needed_report = "\n".join(map(str,list_of_para_with_need_citation))
-    return citations_needed_report
+    return citations_needed_report, list_of_para_with_need_citation[0]
 
+## For Testing ##
+def get_citations_needed_report_testing(url):
+    list_of_para_with_need_citation = []
+    paragraph_div = soup.find("div", id = "mw-content-text")
+    needed_citations = paragraph_div.find_all("a", title = "Wikipedia:Citation needed")
+    for needed_citation in needed_citations:
+        list_of_para_with_need_citation.append(needed_citation.parent.parent.parent.text)
+    citations_needed_report = "\n".join(map(str,list_of_para_with_need_citation))
+    return list_of_para_with_need_citation[0].strip()
 
 
 if __name__ == "__main__":
